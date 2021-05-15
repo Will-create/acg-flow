@@ -4,12 +4,26 @@
 	"version": "1.0.0",
 	"main": "index.js",
 	"dependencies": {
-		"total4": "latest"
+		"cheerio": "*",
+		"dbms": "^0.9.4",
+		"google": "^2.1.0",
+		"google-it": "^1.6.2",
+		"jsdom": "^16.5.3",
+		"mosca": "^2.8.3",
+		"node-schedule": "^2.0.0",
+		"total4": "^0.0.38",
+		"uuid": "^2.0.3",
+		"xlsx": "^0.16.9",
+		"xpath": "^0.0.32"
 	},
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
-	"keywords": ["empty", "project"],
+	"keywords": [
+		"empty",
+		"project"
+	],
 	"author": "Peter Širka",
-	"license": "MIT"
+	"license": "MIT",
+	"_id": "totalproject@1.0.0"
 }
