@@ -1,0 +1,1762 @@
+{
+	"tabs": [
+		{
+			"id": "1551471882315",
+			"name": "Météo",
+			"icon": "fa-object-ungroup",
+			"linker": "meteo",
+			"index": 0
+		},
+		{
+			"name": "PMU",
+			"linker": "pmu",
+			"id": "1614955428678",
+			"index": 1
+		},
+		{
+			"name": "BaseDonnee",
+			"linker": "basedonnee",
+			"id": "1612382259431",
+			"index": 2
+		},
+		{
+			"name": "sms client",
+			"linker": "sms-client",
+			"id": "1612395969231",
+			"index": 3
+		},
+		{
+			"name": "test",
+			"linker": "test",
+			"id": "1619614383678",
+			"index": 4
+		}
+	],
+	"components": [
+		{
+			"id": "1551472055468",
+			"component": "code",
+			"tab": "1551471882315",
+			"name": "Regions",
+			"x": 192,
+			"y": 73,
+			"connections": {
+				"0": [
+					{
+						"index": "0",
+						"id": "1615461210339"
+					},
+					{
+						"index": "0",
+						"id": "1551472874827"
+					}
+				],
+				"1": [
+					{
+						"index": "2",
+						"id": "1615484809963"
+					},
+					{
+						"index": "2",
+						"id": "1615484844780"
+					},
+					{
+						"index": "2",
+						"id": "1615484822761"
+					}
+				]
+			},
+			"disabledio": {
+				"input": [],
+				"output": []
+			},
+			"state": {
+				"text": "",
+				"color": "gray"
+			},
+			"color": "#E73323",
+			"notes": "",
+			"output": 2,
+			"options": {
+				"keepmessage": true,
+				"code": "var menu = 'Météo'.slug();\nvar api = 'http://localhost:8001/api/menu/liste/'+menu;\nvar regions = [];\nRESTBuilder.GET(api).callback(function(err, meta, data){\nmeta.map(function(region){\n regions.push(region.nom);\n})\nmeta.menu = menu;\nsend(0, regions);\nsend(1, meta);\n\n});",
+				"outputs": 2
+			}
+		},
+		{
+			"id": "1551472146348",
+			"component": "code",
+			"tab": "1551471882315",
+			"name": "Data parser",
+			"x": 665,
+			"y": 38,
+			"connections": {
+				"0": [
+					{
+						"index": "0",
+						"id": "1551472572597"
+					},
+					{
+						"index": "0",
+						"id": "1551472643447"
+					},
+					{
+						"index": "0",
+						"id": "1551472660345"
+					},
+					{
+						"index": "0",
+						"id": "1551472745363"
+					}
+				]
+			},
+			"disabledio": {
+				"input": [],
+				"output": []
+			},
+			"state": {
+				"text": "",
+				"color": "gray"
+			},
+			"color": "#656D78",
+			"notes": "",
+			"options": {
+				"keepmessage": true,
+				"code": "send(0,value);",
+				"outputs": 1
+			}
+		},
+		{
+			"id": "1551472572597",
+			"component": "dashboardanalytics",
+			"tab": "1551471882315",
+			"name": "Temperature",
+			"x": 1015,
+			"y": 83,
+			"connections": {},
+			"disabledio": {
+				"input": [],
+				"output": []
+			},
+			"state": {
+				"text": "",
+				"color": "gray"
+			},
+			"color": "#5CB36D",
+			"notes": "",
+			"options": {
+				"statsyears": 5,
+				"statsmonths": 12,
+				"statsdays": 14,
+				"statshours": 24,
+				"decimals": 2,
+				"format": "{0} °C",
+				"fn": "next(value.main.temp);",
+				"type": "median"
+			}
+		},
+		{
+			"id": "1551472643447",
+			"component": "dashboardanalytics",
+			"tab": "1551471882315",
+			"name": "Pressure",
+			"x": 1010,
+			"y": 152,
+			"connections": {},
+			"disabledio": {
+				"input": [],
+				"output": []
+			},
+			"state": {
+				"text": "",
+				"color": "gray"
+			},
+			"color": "#5CB36D",
+			"notes": "",
+			"options": {
+				"statsyears": 5,
+				"statsmonths": 12,
+				"statsdays": 14,
+				"statshours": 24,
+				"decimals": 2,
+				"format": "{0} hPa",
+				"fn": "next(value.main.pressure);",
+				"type": "median"
+			}
+		},
+		{
+			"id": "1551472660345",
+			"component": "dashboardanalytics",
+			"tab": "1551471882315",
+			"name": "Humidity",
+			"x": 1021,
+			"y": 219,
+			"connections": {},
+			"disabledio": {
+				"input": [],
+				"output": []
+			},
+			"state": {
+				"text": "",
+				"color": "gray"
+			},
+			"color": "#5CB36D",
+			"notes": "",
+			"options": {
+				"statsyears": 5,
+				"statsmonths": 12,
+				"statsdays": 14,
+				"statshours": 24,
+				"decimals": 0,
+				"format": "{0} %",
+				"fn": "send(value.main.humidity);",
+				"type": "Dmin"
+			}
+		},
+		{
+			"id": "1551472745363",
+			"component": "dashboardanalytics",
+			"tab": "1551471882315",
+			"name": "Cloudiness",
+			"x": 1024,
+			"y": 18,
+			"connections": {},
+			"disabledio": {
+				"input": [],
+				"output": []
+			},
+			"state": {
+				"text": "",
+				"color": "gray"
+			},
+			"color": "#5CB36D",
+			"notes": "",
+			"options": {
+				"statsyears": 5,
+				"statsmonths": 12,
+				"statsdays": 14,
+				"statshours": 24,
+				"decimals": 0,
+				"format": "{0} %",
+				"fn": "if (value.clouds && value.clouds.all)\n\tnext(value.clouds.all);",
+				"type": "median"
+			}
+		},
+		{
+			"id": "1551472874827",
+			"component": "counter",
+			"tab": "1551471882315",
+			"name": "Counter",
+			"x": 293,
+			"y": 420,
+			"connections": {},
+			"disabledio": {
+				"input": [],
+				"output": []
+			},
+			"state": {
+				"text": "",
+				"color": "gray"
+			},
+			"color": "#656D78",
+			"notes": "",
+			"options": {
+				"enabled": true
+			}
+		},
+		{
+			"id": "1551473223804",
+			"component": "timer",
+			"tab": "1551471882315",
+			"name": "20 minutes",
+			"x": -27,
+			"y": 192,
+			"connections": {
+				"0": [
+					{
+						"index": "0",
+						"id": "1551472055468"
+					}
+				]
+			},
+			"disabledio": {
+				"input": [],
+				"output": []
+			},
+			"state": {
+				"text": "",
+				"color": "gray"
+			},
+			"color": "#F6BB42",
+			"notes": "",
+			"options": {
+				"interval": 5000000,
+				"data": "Empty value",
+				"datatype": "string"
+			}
+		},
+		{
+			"id": "1614955463692",
+			"component": "timer",
+			"tab": "1614955428678",
+			"name": "30 Secondes",
+			"x": -21,
+			"y": 696,
+			"connections": {
+				"0": [
+					{
+						"index": "0",
+						"id": "1194299452379"
+					}
+				]
+			},
+			"disabledio": {
+				"input": [],
+				"output": []
+			},
+			"state": {
+				"text": "",
+				"color": "gray"
+			},
+			"color": "#F6BB42",
+			"notes": "",
+			"options": {
+				"interval": 60000,
+				"data": "1",
+				"datatype": "integer"
+			}
+		},
+		{
+			"id": "1614955532255",
+			"component": "debug",
+			"tab": "1614955428678",
+			"name": "Debug",
+			"x": 2669,
+			"y": 799,
+			"connections": {},
+			"disabledio": {
+				"input": [],
+				"output": []
+			},
+			"state": {
+				"text": "Enabled",
+				"color": "gray"
+			},
+			"color": "#967ADC",
+			"notes": "",
+			"options": {
+				"type": "data",
+				"repository": false,
+				"enabled": true
+			}
+		},
+		{
+			"id": "1614955915805",
+			"component": "code",
+			"tab": "1614955428678",
+			"name": "Get link",
+			"x": 896,
+			"y": 275,
+			"connections": {
+				"0": [
+					{
+						"index": "0",
+						"id": "1619769016533"
+					}
+				]
+			},
+			"disabledio": {
+				"input": [],
+				"output": []
+			},
+			"state": {
+				"text": "",
+				"color": "gray"
+			},
+			"color": "#0216C4",
+			"notes": "",
+			"options": {
+				"keepmessage": true,
+				"code": "//var data = value.data.parseJSO\n\n\nvar resultat = MAIN.google[0]\nvar pmu = MAIN.pmu;\nvar lien = resultat.link;\n   send(0, lien);",
+				"outputs": 1,
+				"debug": true
+			}
+		},
+		{
+			"id": "1612382274682",
+			"component": "httproute",
+			"tab": "1612382259431",
+			"name": "GET /api/sms",
+			"x": 78.01408386230469,
+			"y": 46.99347686767578,
+			"connections": {
+				"0": [
+					{
+						"index": "0",
+						"id": "1612395187109"
+					}
+				]
+			},
+			"disabledio": {
+				"input": [],
+				"output": []
+			},
+			"state": {
+				"text": "Listening",
+				"color": "green"
+			},
+			"color": "#5D9CEC",
+			"notes": "### Configuration\n\n- __GET /api/sms__\n- flags: \n- maximum request data length: __5 kB__\n- empty response: __undefined__\n- cache policy: __no cache__\n- cache expire: __5 minutes__",
+			"cloning": false,
+			"options": {
+				"timeout": 5,
+				"cachepolicy": 0,
+				"cacheexpire": "5 minutes",
+				"size": 5,
+				"url": "/api/sms",
+				"method": "GET",
+				"flags": [
+					5000,
+					"id:1612382274682",
+					"get"
+				],
+				"name": ""
+			}
+		},
+		{
+			"id": "1612382419526",
+			"component": "httpresponse",
+			"tab": "1612382259431",
+			"name": "SMS response",
+			"x": 490.0140838623047,
+			"y": 83.00652313232422,
+			"connections": {
+				"0": [
+					{
+						"index": "0",
+						"id": "1612382957155"
+					}
+				]
+			},
+			"disabledio": {
+				"input": [],
+				"output": []
+			},
+			"state": {
+				"text": "",
+				"color": "gray"
+			},
+			"color": "#5D9CEC",
+			"notes": "",
+			"options": {
+				"datatype": "json"
+			}
+		},
+		{
+			"id": "1612382957155",
+			"component": "debug",
+			"tab": "1612382259431",
+			"name": "Debug",
+			"x": 869.0140838623047,
+			"y": 248.00652313232422,
+			"connections": {},
+			"disabledio": {
+				"input": [],
+				"output": []
+			},
+			"state": {
+				"text": "Enabled",
+				"color": "gray"
+			},
+			"color": "#967ADC",
+			"notes": "",
+			"options": {
+				"type": "data",
+				"repository": false,
+				"enabled": true
+			}
+		},
+		{
+			"id": "1612383022995",
+			"component": "httproute",
+			"tab": "1612382259431",
+			"name": "GET /api/sms/{id}",
+			"x": 32.01408386230469,
+			"y": 201.99347686767578,
+			"connections": {
+				"0": [
+					{
+						"index": "0",
+						"id": "1612384203871"
+					}
+				]
+			},
+			"disabledio": {
+				"input": [],
+				"output": []
+			},
+			"state": {
+				"text": "Listening",
+				"color": "green"
+			},
+			"color": "#5D9CEC",
+			"notes": "### Configuration\n\n- __GET /api/sms/{id}__\n- flags: \n- maximum request data length: __5 kB__\n- empty response: __undefined__\n- cache policy: __no cache__\n- cache expire: __5 minutes__",
+			"cloning": false,
+			"options": {
+				"timeout": 5,
+				"cachepolicy": 0,
+				"cacheexpire": "5 minutes",
+				"size": 5,
+				"url": "/api/sms/{id}",
+				"method": "GET",
+				"name": "",
+				"flags": [
+					5000,
+					"id:1612383022995",
+					"get"
+				]
+			}
+		},
+		{
+			"id": "1612383357584",
+			"component": "httpresponse",
+			"tab": "1612382259431",
+			"name": "SMS response",
+			"x": 497.0140838623047,
+			"y": 291.0065231323242,
+			"connections": {
+				"0": [
+					{
+						"index": "0",
+						"id": "1612382957155"
+					}
+				]
+			},
+			"disabledio": {
+				"input": [],
+				"output": []
+			},
+			"state": {
+				"text": "",
+				"color": "gray"
+			},
+			"color": "#5D9CEC",
+			"notes": "",
+			"options": {
+				"datatype": "json"
+			}
+		},
+		{
+			"id": "1612384203871",
+			"component": "code",
+			"tab": "1612382259431",
+			"name": "Code",
+			"x": 230.0140838623047,
+			"y": 241.95744276046753,
+			"connections": {
+				"0": [
+					{
+						"index": "0",
+						"id": "1612382957155"
+					},
+					{
+						"index": "0",
+						"id": "1612395334012"
+					}
+				]
+			},
+			"disabledio": {
+				"input": [],
+				"output": []
+			},
+			"state": {
+				"text": "",
+				"color": "gray"
+			},
+			"color": "#656D78",
+			"notes": "",
+			"options": {
+				"keepmessage": true,
+				"code": "flowdata.data.id = flowdata.data.params.id;\nsend(0, value);",
+				"outputs": 1
+			}
+		},
+		{
+			"id": "1612384617915",
+			"component": "httproute",
+			"tab": "1612382259431",
+			"name": "DELETE  /api/sms/{id}",
+			"x": 4.0140838623046875,
+			"y": 342.9934768676758,
+			"connections": {
+				"0": [
+					{
+						"index": "0",
+						"id": "1612384746546"
+					}
+				]
+			},
+			"disabledio": {
+				"input": [],
+				"output": []
+			},
+			"state": {
+				"text": "Listening",
+				"color": "green"
+			},
+			"color": "#5D9CEC",
+			"notes": "### Configuration\n\n- __DELETE /api/sms/{id}__\n- flags: delete\n- maximum request data length: __5 kB__\n- empty response: __undefined__\n- cache policy: __no cache__\n- cache expire: __5 minutes__",
+			"cloning": false,
+			"options": {
+				"timeout": 5,
+				"cachepolicy": 0,
+				"cacheexpire": "5 minutes",
+				"size": 5,
+				"url": "/api/sms/{id}",
+				"method": "DELETE",
+				"flags": [
+					5000,
+					"id:1612384617915",
+					"delete"
+				],
+				"name": ""
+			}
+		},
+		{
+			"id": "1612384746546",
+			"component": "code",
+			"tab": "1612382259431",
+			"name": "Code",
+			"x": 216.0140838623047,
+			"y": 423.95744276046753,
+			"connections": {
+				"0": [
+					{
+						"index": "0",
+						"id": "1612395421705"
+					}
+				]
+			},
+			"disabledio": {
+				"input": [],
+				"output": []
+			},
+			"state": {
+				"text": "",
+				"color": "gray"
+			},
+			"color": "#656D78",
+			"notes": "",
+			"options": {
+				"keepmessage": true,
+				"code": "flowdata.data.id = flowdata.data.params.id;\nsend(0, value);",
+				"outputs": 1
+			}
+		},
+		{
+			"id": "1612384970607",
+			"component": "httpresponse",
+			"tab": "1612382259431",
+			"name": "SMS response",
+			"x": 487.0140838623047,
+			"y": 434.0065231323242,
+			"connections": {
+				"0": [
+					{
+						"index": "0",
+						"id": "1612382957155"
+					}
+				]
+			},
+			"disabledio": {
+				"input": [],
+				"output": []
+			},
+			"state": {
+				"text": "",
+				"color": "gray"
+			},
+			"color": "#5D9CEC",
+			"notes": "",
+			"options": {
+				"datatype": "json"
+			}
+		},
+		{
+			"id": "1612386178586",
+			"component": "httproute",
+			"tab": "1612382259431",
+			"name": "Post /api/sms/",
+			"x": -3.9859161376953125,
+			"y": 474.9934768676758,
+			"connections": {
+				"0": [
+					{
+						"index": "0",
+						"id": "1612395491530"
+					}
+				]
+			},
+			"disabledio": {
+				"input": [],
+				"output": []
+			},
+			"state": {
+				"text": "Listening",
+				"color": "green"
+			},
+			"color": "#5D9CEC",
+			"notes": "### Configuration\n\n- __POST /api/sms/__\n- flags: json\n- maximum request data length: __13 kB__\n- empty response: __false__\n- cache policy: __no cache__\n- cache expire: __5 minutes__",
+			"cloning": false,
+			"options": {
+				"timeout": 5,
+				"cachepolicy": 0,
+				"cacheexpire": "5 minutes",
+				"size": 13,
+				"url": "/api/sms/",
+				"method": "POST",
+				"name": "",
+				"flags": [
+					5000,
+					"id:1612386178586",
+					"json",
+					"post"
+				],
+				"emptyresponse": false
+			}
+		},
+		{
+			"id": "1612386223577",
+			"component": "code",
+			"tab": "1612382259431",
+			"name": "Code",
+			"x": 206.0140838623047,
+			"y": 620.9574427604675,
+			"connections": {},
+			"disabledio": {
+				"input": [],
+				"output": []
+			},
+			"state": {
+				"text": "",
+				"color": "gray"
+			},
+			"color": "#656D78",
+			"notes": "",
+			"options": {
+				"keepmessage": true,
+				"code": "var sms =  flowdata.data.body;\n\nif(!sms.contenu_entree || !sms.fournisseur)\n\treturn send(0 , {err : 'missing fields content'});\n\n\n\nsend(0, sms);",
+				"outputs": 1
+			}
+		},
+		{
+			"id": "1612387156908",
+			"component": "httpresponse",
+			"tab": "1612382259431",
+			"name": "SMS response",
+			"x": 551.0140838623047,
+			"y": 350.0065231323242,
+			"connections": {
+				"0": [
+					{
+						"index": "0",
+						"id": "1612382957155"
+					}
+				]
+			},
+			"disabledio": {
+				"input": [],
+				"output": []
+			},
+			"state": {
+				"text": "",
+				"color": "gray"
+			},
+			"color": "#5D9CEC",
+			"notes": "",
+			"options": {
+				"datatype": "json"
+			}
+		},
+		{
+			"id": "1612395187109",
+			"component": "pgdbms",
+			"tab": "1612382259431",
+			"name": "PG_DBMS",
+			"x": 279.0140838623047,
+			"y": 64.00652313232422,
+			"connections": {
+				"0": [
+					{
+						"index": "0",
+						"id": "1612382419526"
+					}
+				]
+			},
+			"disabledio": {
+				"input": [],
+				"output": []
+			},
+			"state": {
+				"text": "",
+				"color": "gray"
+			},
+			"color": "#7327F5",
+			"notes": "",
+			"options": {
+				"method": "query",
+				"collection": "sms",
+				"connexion": "postgresql://postgres:bertille@localhost:5432/actu"
+			}
+		},
+		{
+			"id": "1612395334012",
+			"component": "pgdbms",
+			"tab": "1612382259431",
+			"name": "PG_DBMS",
+			"x": 359.0140838623047,
+			"y": 178.00652313232422,
+			"connections": {
+				"0": [
+					{
+						"index": "0",
+						"id": "1612383357584"
+					}
+				]
+			},
+			"disabledio": {
+				"input": [],
+				"output": []
+			},
+			"state": {
+				"text": "",
+				"color": "gray"
+			},
+			"color": "#7327F5",
+			"notes": "",
+			"options": {
+				"connexion": "postgresql://postgres:bertille@localhost:5432/actu",
+				"collection": "sms",
+				"method": "read"
+			}
+		},
+		{
+			"id": "1612395421705",
+			"component": "pgdbms",
+			"tab": "1612382259431",
+			"name": "PG_DBMS",
+			"x": 339.0140838623047,
+			"y": 354.0065231323242,
+			"connections": {
+				"0": [
+					{
+						"index": "0",
+						"id": "1612384970607"
+					}
+				]
+			},
+			"disabledio": {
+				"input": [],
+				"output": []
+			},
+			"state": {
+				"text": "",
+				"color": "gray"
+			},
+			"color": "#7327F5",
+			"notes": "",
+			"options": {
+				"NOTES": "",
+				"COLOR": "#7327F5",
+				"COMPONENT": "pgdbms",
+				"NAME": "PG_DBMS",
+				"connexion": "postgresql://postgres:bertille@localhost:5432/actu",
+				"collection": "sms",
+				"method": "remove"
+			}
+		},
+		{
+			"id": "1612395491530",
+			"component": "pgdbms",
+			"tab": "1612382259431",
+			"name": "PG_DBMS",
+			"x": 353.0140838623047,
+			"y": 541.0065231323242,
+			"connections": {
+				"0": [
+					{
+						"index": "0",
+						"id": "1612387156908"
+					}
+				]
+			},
+			"disabledio": {
+				"input": [],
+				"output": []
+			},
+			"state": {
+				"text": "",
+				"color": "gray"
+			},
+			"color": "#7327F5",
+			"notes": "",
+			"options": {
+				"connexion": "postgresql://postgres:bertille@localhost:5432/actu",
+				"collection": "sms",
+				"method": "insert"
+			}
+		},
+		{
+			"id": "1612395974651",
+			"component": "timer",
+			"tab": "1612395969231",
+			"name": "Timer",
+			"x": -22.985916137695312,
+			"y": 328.0065231323242,
+			"connections": {},
+			"disabledio": {
+				"input": [],
+				"output": []
+			},
+			"state": {
+				"text": "",
+				"color": "gray"
+			},
+			"color": "#F6BB42",
+			"notes": "",
+			"options": {
+				"interval": 10000
+			}
+		},
+		{
+			"id": "1612396041208",
+			"component": "debug",
+			"tab": "1612395969231",
+			"name": "Debug",
+			"x": 589.0130157470703,
+			"y": 333.0065231323242,
+			"connections": {},
+			"disabledio": {
+				"input": [],
+				"output": []
+			},
+			"state": {
+				"text": "Enabled",
+				"color": "gray"
+			},
+			"color": "#967ADC",
+			"notes": "",
+			"options": {
+				"type": "data",
+				"repository": false,
+				"enabled": true
+			}
+		},
+		{
+			"id": "1612396098984",
+			"component": "code",
+			"tab": "1612395969231",
+			"name": "To JSON",
+			"x": 115.01301574707031,
+			"y": 207.00652313232422,
+			"connections": {
+				"0": [
+					{
+						"index": "0",
+						"id": "1612398749088"
+					}
+				]
+			},
+			"disabledio": {
+				"input": [],
+				"output": []
+			},
+			"state": {
+				"text": "",
+				"color": "gray"
+			},
+			"color": "#656D78",
+			"notes": "",
+			"options": {
+				"keepmessage": true,
+				"code": "var data = value.data.parseJSON(true);\nsend(0, data);",
+				"outputs": 1
+			}
+		},
+		{
+			"id": "1612398749088",
+			"component": "code",
+			"tab": "1612395969231",
+			"name": "Code",
+			"x": 349.0140838623047,
+			"y": 99.00652313232422,
+			"connections": {
+				"0": [
+					{
+						"index": "0",
+						"id": "1612396041208"
+					}
+				],
+				"1": [
+					{
+						"index": "0",
+						"id": "1612396041208"
+					}
+				]
+			},
+			"disabledio": {
+				"input": [],
+				"output": []
+			},
+			"state": {
+				"text": "",
+				"color": "gray"
+			},
+			"color": "#656D78",
+			"notes": "",
+			"output": 2,
+			"options": {
+				"keepmessage": true,
+				"code": "var body =  value.response;\nvar items =  body.items\n\nfor(var i = 0; i < items.length; i++ ){\n\titems[i].contenu_sortie = items[i].contenu_entree.toUpperCase();\n}\nsend(0, body);\nsend(1, items);",
+				"outputs": 2
+			}
+		},
+		{
+			"id": "1612395919447",
+			"component": "restproxy",
+			"tab": "1612395969231",
+			"name": "Proxy",
+			"x": 200.8996124267578,
+			"y": 678.8755493164062,
+			"connections": {
+				"0": [
+					{
+						"index": "0",
+						"id": "1612395957922"
+					}
+				]
+			},
+			"disabledio": {
+				"input": [],
+				"output": []
+			},
+			"state": {
+				"text": "",
+				"color": "gray"
+			},
+			"color": "#6B9CE6",
+			"notes": "### Configuration\n\n- __GET /api/components/__\n- authorization: __false__\n- auto-responding: __false__\n- maximum request data length: __5 kB__\n- timeout for response: __5 seconds__\n- cache: __24 secondes__\n---\n__Target:__\nhttp://localhost:8005/api/sms/",
+			"cloning": false,
+			"options": {
+				"duration": false,
+				"cachepolicy": 1,
+				"cacheexpire": "24 secondes",
+				"timeout": 5,
+				"respond": false,
+				"length": 5,
+				"middleware": [],
+				"auth": false,
+				"nodns": false,
+				"headersres": false,
+				"headersreq": true,
+				"target": "http://localhost:8005/api/sms/",
+				"url": "/api/components/",
+				"method": "GET"
+			}
+		},
+		{
+			"id": "1612395957922",
+			"component": "restresponse",
+			"tab": "1612395969231",
+			"name": "Response",
+			"x": 405.8996124267578,
+			"y": 480.87554931640625,
+			"connections": {},
+			"disabledio": {
+				"input": [],
+				"output": []
+			},
+			"state": {
+				"text": "",
+				"color": "gray"
+			},
+			"color": "#B0331B",
+			"notes": "",
+			"options": {}
+		},
+		{
+			"id": "1615461210339",
+			"component": "code",
+			"tab": "1551471882315",
+			"name": "Données Météo",
+			"x": 391.8996124267578,
+			"y": 26.256410598754883,
+			"connections": {
+				"0": [
+					{
+						"index": "0",
+						"id": "1551472146348"
+					},
+					{
+						"index": "0",
+						"id": "1615483055337"
+					}
+				]
+			},
+			"disabledio": {
+				"input": [],
+				"output": []
+			},
+			"state": {
+				"text": "",
+				"color": "gray"
+			},
+			"color": "#EC8632",
+			"notes": "",
+			"options": {
+				"keepmessage": true,
+				"code": "var regions = flowdata.data;\nvar api_key = 'ab44dbf29c0522727ec58b0e27f1f0ac';\nvar api = 'http://api.openweathermap.org/data/2.5/weather?q={0}&units=metric&lang=fr&appid={1}';\nregions.map(function(region){\n\tRESTBuilder.GET(api.format(region,api_key)).callback(function(err,meta,output){\n\t\tsend(0, meta);\n});\n})",
+				"outputs": 1,
+				"debug": true
+			}
+		},
+		{
+			"id": "1615465808011",
+			"component": "template",
+			"tab": "1551471882315",
+			"name": "Moov Africa",
+			"x": 449.7149963378906,
+			"y": 316.0013198852539,
+			"connections": {
+				"0": [
+					{
+						"index": "0",
+						"id": "1615484809963"
+					}
+				]
+			},
+			"disabledio": {
+				"input": [],
+				"output": []
+			},
+			"state": {
+				"text": "",
+				"color": "gray"
+			},
+			"color": "#8C42F6",
+			"notes": "",
+			"options": {
+				"template": "***Moov Africa*** \n***Meteo Aujourd hui*** \n@{NOW.format('dd MMMM yyyy','date')}\nMax : @{model.main.temp_max}C Min : @{model.main.temp_min}C Vent : @{((model.wind.speed * 18)/5).round(2)}km/h 06:00 = 19C 12:00 = 35C 18:00 = @{uuid()}C Lever du Soleil @{model.sys.sunrise.parseDate().format('HH:mm')} Coucher du soleil @{model.sys.sunset.parseDate().format('HH:mm')}"
+			}
+		},
+		{
+			"id": "1615465962871",
+			"component": "template",
+			"tab": "1551471882315",
+			"name": "Telecel",
+			"x": 837.7149963378906,
+			"y": 210.0013198852539,
+			"connections": {
+				"0": [
+					{
+						"index": "0",
+						"id": "1615484822761"
+					}
+				]
+			},
+			"disabledio": {
+				"input": [],
+				"output": []
+			},
+			"state": {
+				"text": "",
+				"color": "gray"
+			},
+			"color": "#5599F8",
+			"notes": "",
+			"options": {
+				"template": "***Telecel*** \n***Meteo Aujourd hui*** \n@{NOW.format('dd MMMM yyyy','date')}\nMax : @{model.main.temp_max}C Min : @{model.main.temp_min}C Vent : @{((model.wind.speed * 18)/5).round(2)}km/h 06:00 = 19C 12:00 = 35C 18:00 = @{uuid()}C Lever du Soleil @{model.sys.sunrise.parseDate().format('HH:mm')} Coucher du soleil @{model.sys.sunset.parseDate().format('HH:mm')}"
+			}
+		},
+		{
+			"id": "1615465984295",
+			"component": "template",
+			"tab": "1551471882315",
+			"name": "MaliTel",
+			"x": 754.7149963378906,
+			"y": 352.0013198852539,
+			"connections": {
+				"0": [
+					{
+						"index": "1",
+						"id": "1615484844780"
+					}
+				]
+			},
+			"disabledio": {
+				"input": [],
+				"output": []
+			},
+			"state": {
+				"text": "",
+				"color": "gray"
+			},
+			"color": "#4285F4",
+			"notes": "",
+			"options": {
+				"template": "***MaliTel*** \n***Meteo Aujourd hui*** \n@{NOW.format('dd MMMM yyyy','date')}\nMax : @{model.main.temp_max}C Min : @{model.main.temp_min}C Vent : @{((model.wind.speed * 18)/5).round(2)}km/h 06:00 = 19C 12:00 = 35C 18:00 = @{uuid()}C Lever du Soleil @{model.sys.sunrise.parseDate().format('HH:mm')} Coucher du soleil @{model.sys.sunset.parseDate().format('HH:mm')}"
+			}
+		},
+		{
+			"id": "1615483055337",
+			"component": "code",
+			"tab": "1551471882315",
+			"name": "Code",
+			"x": 606.6574478149414,
+			"y": 195.0013198852539,
+			"connections": {
+				"0": [
+					{
+						"index": "0",
+						"id": "1615465808011"
+					},
+					{
+						"index": "0",
+						"id": "1615465962871"
+					},
+					{
+						"index": "0",
+						"id": "1615465984295"
+					},
+					{
+						"index": "1",
+						"id": "1615484809963"
+					},
+					{
+						"index": "1",
+						"id": "1615484822761"
+					},
+					{
+						"index": "0",
+						"id": "1615484844780"
+					}
+				]
+			},
+			"disabledio": {
+				"input": [],
+				"output": []
+			},
+			"state": {
+				"text": "",
+				"color": "gray"
+			},
+			"color": "#656D78",
+			"notes": "",
+			"options": {
+				"keepmessage": true,
+				"code": "send(0, value);",
+				"outputs": 1
+			}
+		},
+		{
+			"id": "1615484809963",
+			"component": "mergetoobject",
+			"tab": "1551471882315",
+			"name": "Merge to object",
+			"x": 973.756706237793,
+			"y": 336.61075592041016,
+			"connections": {
+				"0": [
+					{
+						"index": "0",
+						"id": "1615484947863"
+					}
+				]
+			},
+			"disabledio": {
+				"input": [],
+				"output": []
+			},
+			"state": {
+				"text": "",
+				"color": "red"
+			},
+			"color": "#E84FF7",
+			"notes": "",
+			"input": 3,
+			"options": {
+				"id": true,
+				"props": [
+					"template",
+					"sms",
+					"init"
+				]
+			}
+		},
+		{
+			"id": "1615484822761",
+			"component": "mergetoobject",
+			"tab": "1551471882315",
+			"name": "Merge to object",
+			"x": 817.756706237793,
+			"y": 462.61075592041016,
+			"connections": {
+				"0": [
+					{
+						"index": "0",
+						"id": "1615484957790"
+					}
+				]
+			},
+			"disabledio": {
+				"input": [],
+				"output": []
+			},
+			"state": {
+				"text": "",
+				"color": "red"
+			},
+			"color": "#E84FF7",
+			"notes": "",
+			"input": 3,
+			"options": {
+				"id": true,
+				"props": [
+					"template",
+					"sms",
+					"init"
+				]
+			}
+		},
+		{
+			"id": "1615484844780",
+			"component": "mergetoobject",
+			"tab": "1551471882315",
+			"name": "Merge to object",
+			"x": 926.756706237793,
+			"y": 627.6107559204102,
+			"connections": {
+				"0": [
+					{
+						"index": "0",
+						"id": "1615484963572"
+					}
+				]
+			},
+			"disabledio": {
+				"input": [],
+				"output": []
+			},
+			"state": {
+				"text": "",
+				"color": "red"
+			},
+			"color": "#E84FF7",
+			"notes": "",
+			"input": 3,
+			"options": {
+				"id": true,
+				"props": [
+					"template",
+					"sms",
+					"init"
+				]
+			}
+		},
+		{
+			"id": "1615484947863",
+			"component": "code",
+			"tab": "1551471882315",
+			"name": "Code",
+			"x": 1260.7867431640625,
+			"y": 188.8306121826172,
+			"connections": {
+				"0": [
+					{
+						"index": "0",
+						"id": "1615546086013"
+					}
+				]
+			},
+			"disabledio": {
+				"input": [],
+				"output": []
+			},
+			"state": {
+				"text": "",
+				"color": "gray"
+			},
+			"color": "#656D78",
+			"notes": "",
+			"options": {
+				"keepmessage": true,
+				"code": "const {v4 : uuid } = require('uuid');\nvar data = flowdata.data;\nfor(var i = 0; i < data.init.length; i++){\nvar sms = {};\nsms.uuid = uuid();\nsms.destination = 'moov';\nsms.sousmenu = data.init[i].nom;\nsms.menu = data.init[i].pseudo;\nsms.api_id = data.init[i].api.id;\nsms.contenu_sortie = data.template;\nsend(0, sms);\n}",
+				"outputs": 1,
+				"debug": true
+			}
+		},
+		{
+			"id": "1615484957790",
+			"component": "code",
+			"tab": "1551471882315",
+			"name": "Code",
+			"x": 1207.7867431640625,
+			"y": 451.8306121826172,
+			"connections": {
+				"0": [
+					{
+						"index": "0",
+						"id": "1615548235305"
+					}
+				]
+			},
+			"disabledio": {
+				"input": [],
+				"output": []
+			},
+			"state": {
+				"text": "",
+				"color": "gray"
+			},
+			"color": "#656D78",
+			"notes": "",
+			"options": {
+				"keepmessage": true,
+				"code": "const {v4 : uuid } = require('uuid');\nvar data = flowdata.data;\nfor(var i = 0; i < data.init.length; i++){\nvar sms = {};\nsms.uuid = uuid();\nsms.destination = 'telecel';\nsms.sousmenu = data.init[i].nom;\nsms.menu = data.init[i].pseudo;\nsms.api_id = data.init[i].api.id;\nsms.contenu_sortie = data.template;\nsend(0, sms);\n}",
+				"outputs": 1
+			}
+		},
+		{
+			"id": "1615484963572",
+			"component": "code",
+			"tab": "1551471882315",
+			"name": "Code",
+			"x": 1202.7867431640625,
+			"y": 587.8306121826172,
+			"connections": {
+				"0": [
+					{
+						"index": "0",
+						"id": "1615548260510"
+					}
+				]
+			},
+			"disabledio": {
+				"input": [],
+				"output": []
+			},
+			"state": {
+				"text": "",
+				"color": "gray"
+			},
+			"color": "#656D78",
+			"notes": "",
+			"options": {
+				"keepmessage": true,
+				"code": "const {v4 : uuid } = require('uuid');\nvar data = flowdata.data;\nfor(var i = 0; i < data.init.length; i++){\nvar sms = {};\nsms.uuid = uuid();\nsms.destination = 'malitel';\nsms.sousmenu = data.init[i].nom;\nsms.menu = data.init[i].pseudo;\nsms.api_id = data.init[i].api.id;\nsms.contenu_sortie = data.template;\nsend(0, sms);\n}",
+				"outputs": 1
+			}
+		},
+		{
+			"id": "1615546086013",
+			"component": "pgdbms",
+			"tab": "1551471882315",
+			"name": "PG_DBMS",
+			"x": 1432.8207550048828,
+			"y": 245.0555763244629,
+			"connections": {},
+			"disabledio": {
+				"input": [],
+				"output": []
+			},
+			"state": {
+				"text": "",
+				"color": "gray"
+			},
+			"color": "#7327F5",
+			"notes": "",
+			"options": {
+				"method": "insert",
+				"collection": "sms",
+				"connexion": "postgresql://postgres:bertille@localhost:5432/actu"
+			}
+		},
+		{
+			"id": "1615548235305",
+			"component": "pgdbms",
+			"tab": "1551471882315",
+			"name": "PG_DBMS",
+			"x": 1425.8207550048828,
+			"y": 409.0555763244629,
+			"connections": {},
+			"disabledio": {
+				"input": [],
+				"output": []
+			},
+			"state": {
+				"text": "",
+				"color": "gray"
+			},
+			"color": "#7327F5",
+			"notes": "",
+			"options": {
+				"debug": true,
+				"connexion": "postgresql://postgres:bertille@localhost:5432/actu",
+				"collection": "sms",
+				"method": "insert"
+			}
+		},
+		{
+			"id": "1615548260510",
+			"component": "pgdbms",
+			"tab": "1551471882315",
+			"name": "PG_DBMS",
+			"x": 1430.8207550048828,
+			"y": 735.0555763244629,
+			"connections": {},
+			"disabledio": {
+				"input": [],
+				"output": []
+			},
+			"state": {
+				"text": "",
+				"color": "gray"
+			},
+			"color": "#7327F5",
+			"notes": "",
+			"options": {
+				"debug": true,
+				"connexion": "postgresql://postgres:bertille@localhost:5432/actu",
+				"collection": "sms",
+				"method": "insert"
+			}
+		},
+		{
+			"id": "1619614394567",
+			"component": "debug",
+			"tab": "1619614383678",
+			"name": "Debug",
+			"x": 568.0081329345703,
+			"y": 241.00601196289062,
+			"connections": {},
+			"disabledio": {
+				"input": [],
+				"output": []
+			},
+			"state": {
+				"text": "Enabled",
+				"color": "gray"
+			},
+			"color": "#967ADC",
+			"notes": "",
+			"options": {
+				"type": "data",
+				"repository": false,
+				"enabled": true
+			}
+		},
+		{
+			"id": "1619614457599",
+			"component": "timer",
+			"tab": "1619614383678",
+			"name": "Timer",
+			"x": 7.0152740478515625,
+			"y": 425.0113754272461,
+			"connections": {},
+			"disabledio": {
+				"input": [],
+				"output": []
+			},
+			"state": {
+				"text": "",
+				"color": "gray"
+			},
+			"color": "#F6BB42",
+			"notes": "",
+			"options": {
+				"interval": 2000
+			}
+		},
+		{
+			"id": "1619725539970",
+			"component": "code",
+			"tab": "1614955428678",
+			"name": "Get Nom de la course",
+			"x": 369.90089416503906,
+			"y": 388.8042242527008,
+			"connections": {
+				"0": [
+					{
+						"index": "0",
+						"id": "1620222027029"
+					}
+				]
+			},
+			"disabledio": {
+				"input": [],
+				"output": []
+			},
+			"state": {
+				"text": "",
+				"color": "gray"
+			},
+			"color": "#656D78",
+			"notes": "",
+			"options": {
+				"keepmessage": true,
+				"code": "var pmu = MAIN.pmu;\npmu.jour = new Date().add('1 days').format('dddd dd MMMM yyyy','date');\nvar date =  new Date().add('1 days').format('yyyy-M-d');\nvar api = 'https://www.turf-fr.com/getQuinte?date={0}&etat_course=0'.format(date);\nvar opt = {};\nopt.url = api;\nopt.callback = function(err,response){\n\tvar res = response.body.parseJSON(true);\n\tconsole.log(res);\n\tvar result =res[0].nom_du_prix;\n\tpmu.course = result;\n\tconsole.log(date);\n\tconsole.log(result)\n\tconsole.log('Jour '+pmu.jour);\n\tsend(0,'editions précédentes du '+result );\n}\nREQUEST(opt);",
+				"outputs": 1,
+				"debug": true
+			}
+		},
+		{
+			"id": "1619769016533",
+			"component": "code",
+			"tab": "1614955428678",
+			"name": "Goto CANAL TURF",
+			"x": 1049,
+			"y": 444,
+			"connections": {
+				"0": [
+					{
+						"index": "0",
+						"id": "1619782764389"
+					}
+				]
+			},
+			"disabledio": {
+				"input": [],
+				"output": []
+			},
+			"state": {
+				"text": "",
+				"color": "gray"
+			},
+			"color": "#47962A",
+			"notes": "",
+			"options": {
+				"keepmessage": true,
+				"code": "//var data = value.data.parseJSO\nvar lien = flowdata.data;\nvar pmu  = MAIN.pmu;\npmu.editions = [];\nvar cheerio =  require('cheerio');\nvar opt = {};\nopt.url = lien && lien.isURL() ? lien : '';\nopt.callback = async function(err,response){\n\tvar $ = await cheerio.load(response.body);\n\tvar editions = [];\n\tvar elements = await $('.list-group-item').slice(0,5);\n\tawait elements.each(async function(i,el){\n\t\t\t\tvar date = await $(el).find('strong').text();\n\t\t\t\tvar link = await $(el).attr('href');\n\t\t\t\tif (date.indexOf('/') === 2 && date.lastIndexOf('/') === 5){\n\t\t\t\tvar edition = {};\n\t\t\t\tedition.date = date.split('/').reverse().join('-');\n\t\t        edition.url = link;\n\t\t\t\tawait pmu.editions.push(edition);\n\t\t\t\t}\n\n\t});\n\tawait send(0, pmu);\n\n}\nREQUEST(opt);",
+				"outputs": 1,
+				"debug": true
+			}
+		},
+		{
+			"id": "1619782764389",
+			"component": "code",
+			"tab": "1614955428678",
+			"name": "Collect edition infos",
+			"x": 1187,
+			"y": 682,
+			"connections": {
+				"0": [
+					{
+						"index": "0",
+						"id": "1620222049234"
+					}
+				]
+			},
+			"disabledio": {
+				"input": [],
+				"output": []
+			},
+			"state": {
+				"text": "",
+				"color": "gray"
+			},
+			"color": "#464646",
+			"notes": "",
+			"options": {
+				"keepmessage": true,
+				"code": "//var data = value.data.parseJSON\nvar pmu  = MAIN.pmu;\nvar cheerio =  require('cheerio');\nvar editions = pmu.editions;\npmu.chaines = [];\nvar getMore = function(chaine,callback){\nvar api = 'https://www.turf-fr.com/getQuinte?date={0}&etat_course=0';\n\tRESTBuilder.GET(api.format(chaine.date)).callback(function(err,response, output){\n\t\tconsole.log(output.response);\n\t\tcallback(output.response);\n\n\n\t})\n}\neditions.map(async function(edition){\n\tvar opt = {};\n    // opt.url = api.edition.url;\n    opt.url = edition.url;\n\n\topt.callback = async function(err,response){\n\t   var chaine = {};\n\n\t\tvar $ = await cheerio.load(response.body);\n\t\tvar infos_titre = await $('#page-title > div > div.col-md-8 > span > small').text().split('-');\n\t\t chaine.date = edition.date;\n\t\t chaine.terrain = infos_titre[0];\n\t\t chaine.longueur = infos_titre[1];\n         console.log(chaine);\n\n\n\n\t}\n\t\tawait REQUEST(opt);\n        await send(0,pmu);\n\n\n\n\n\n})",
+				"outputs": 1,
+				"debug": true
+			}
+		},
+		{
+			"id": "1194299452379",
+			"component": "code",
+			"tab": "1614955428678",
+			"name": "Get dependences",
+			"reference": "",
+			"x": 205,
+			"y": 532,
+			"connections": {
+				"0": [
+					{
+						"index": "0",
+						"id": "1619725539970"
+					}
+				]
+			},
+			"disabledio": {
+				"input": [],
+				"output": []
+			},
+			"state": {
+				"text": "",
+				"color": "gray"
+			},
+			"color": "#656D78",
+			"notes": "",
+			"options": {
+				"keepmessage": true,
+				"code": "MAIN.pmu = {};\nMAIN.pmu.deps = {};\nvar opt = {};\nopt.url = 'http://localhost:8000/api/menu/liste/automate/1';\nopt.callback = function (err,response){\n\tMAIN.pmu.deps.apps = response.body.parseJSON(true);\n\tsend(0, 1);\n}\nREQUEST(opt);",
+				"outputs": 1
+			}
+		},
+		{
+			"id": "1620222027029",
+			"component": "google",
+			"tab": "1614955428678",
+			"name": "Google SEARCH",
+			"x": 577.2818756103516,
+			"y": 272.0113754272461,
+			"connections": {
+				"0": [
+					{
+						"index": "0",
+						"id": "1614955915805"
+					}
+				]
+			},
+			"disabledio": {
+				"input": [],
+				"output": []
+			},
+			"state": {
+				"text": "",
+				"color": "gray"
+			},
+			"color": "#343CF5",
+			"notes": "",
+			"cloning": false,
+			"options": {}
+		},
+		{
+			"id": "1620222049234",
+			"component": "debug",
+			"tab": "1614955428678",
+			"name": "Debug",
+			"x": 1453.6994323730469,
+			"y": 765.7343597412109,
+			"connections": {},
+			"disabledio": {
+				"input": [],
+				"output": []
+			},
+			"state": {
+				"text": "Enabled",
+				"color": "gray"
+			},
+			"color": "#967ADC",
+			"notes": "",
+			"options": {
+				"type": "data",
+				"repository": false,
+				"enabled": true
+			}
+		}
+	],
+	"version": 620
+}
