@@ -1,8 +1,8 @@
-# Empty project: Flow
+# Data scraping flow application with totaljs Flow
 
-- [Documentation](https://docs.totaljs.com)
-- [Join Total.js Telegram](https://t.me/totaljs)
-- [Support](https://www.totaljs.com/support/)
+This application is an automation tool for scraping/scawling data n more than 25 website to feed a database
+
+
 
 __Instructions__:
 
@@ -10,4 +10,3 @@ __Instructions__:
 - download example
 - run `$ node index.js`
 - open browser `http://127.0.0.1:8000`
-- drag & drop file `/builds/app.build` to <https://builder.totaljs.com>
